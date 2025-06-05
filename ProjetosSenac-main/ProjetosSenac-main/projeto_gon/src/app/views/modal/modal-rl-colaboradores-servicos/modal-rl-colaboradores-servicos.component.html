@@ -1,0 +1,20 @@
+<nb-card nbSpinnerStatus="primary" nbSpinnerSize="large">
+    <nb-card-header>
+        Serviços
+        <nb-button-group style="float:right" status="basic" size="small" filled>
+            <button nbButton (click)="getDados(0)" nbPopover="Atualizar">
+                <nb-icon icon="refresh-outline"></nb-icon>
+            </button>
+            <button nbButton nbPopover="Download">
+                <nb-icon icon="download-outline"></nb-icon>
+            </button>
+            <button type="button" nbButton ghost class="close float-end" (click)="close()" size="tiny">
+                <nb-icon icon="close-outline"></nb-icon>
+            </button>
+        </nb-button-group>
+    </nb-card-header>
+    <nb-card-body>
+        <angular2-smart-table [nbSpinner]="loading" [settings]="settings" [source]="source"
+            (create)="showDialog('POST')" (custom)="onOptions($event)"></angular2-smart-table>
+    </nb-card-body>
+</nb-card>

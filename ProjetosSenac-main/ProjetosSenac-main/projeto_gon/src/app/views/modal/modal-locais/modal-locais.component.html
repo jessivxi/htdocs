@@ -1,0 +1,123 @@
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <nb-card class="nb-card-modal card-padding" size="large" [nbSpinner]="loading">
+        <nb-card-header>Cadastro de Local Atividade
+            <button type="button" nbButton ghost class="close float-end" (click)="close()" size="tiny">
+                <nb-icon icon="close-outline"></nb-icon>
+            </button>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <div class="mb-3">
+                            <label class="label">Status</label>
+                            <nb-select placeholder="Selecione o status" fullWidth formControlName="status"
+                                [status]="!formulario.controls['status'].valid ? 'danger' : 'basic'">
+                                <nb-option value="1">Ativo</nb-option>
+                                <nb-option value="0">Inativo</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="mb-3">
+                            <label class="label">Tipo</label>
+                            <nb-select placeholder="Selecione o status" fullWidth formControlName="tipo"
+                                [status]="!formulario.controls['tipo'].valid ? 'danger' : 'basic'">
+                                <nb-option value="0">Estabelecimento terceiro</nb-option>
+                                <nb-option value="1">Estabelecimento próprio</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <div class="mb-3">
+                            <label class="label">CNPJ <span class="text-danger">*</span></label>
+                            <nb-form-field>
+                                <input fullWidth nbInput formControlName="cnpj" placeholder="Digite CPF/CNPJ"
+                                    [mask]="mask"
+                                    [status]="!formulario.controls['cnpj'].valid ? 'danger' : 'basic'"
+                                    (blur)="apiDados(formulario.value.cnpj, 0)">
+                            </nb-form-field>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-7">
+                        <div class="mb-3">
+                            <label class="label">Nome <span class="text-danger">*</span></label>
+                            <input fullWidth nbInput formControlName="nome"
+                                [status]="!formulario.controls['nome'].valid ? 'danger' : 'basic'"
+                                placeholder="Digite a Nome">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">Data Cadastro</label>
+                            <input type="date" nbInput fullWidth placeholder="Digite a data"
+                                formControlName="data_cadastro">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">CEP</label>
+                            <nb-form-field>
+                                <input nbInput fullWidth placeholder="Digite o CEP" mask="00000-000"
+                                    formControlName="cep">
+                                <button type="button" nbSuffix nbButton ghost
+                                    (click)="getCEP(this.formulario.value.cep)">
+                                    <nb-icon icon="search-outline" pack="eva"></nb-icon>
+                                </button>
+                            </nb-form-field>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <div class="mb-3">
+                            <label class="label">Logradouro</label>
+                            <input fullWidth nbInput placeholder="AV / Rua / Estrada" formControlName="logradouro">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">Número</label>
+                            <input fullWidth nbInput placeholder="Digite o número" formControlName="numero">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <div class="mb-3">
+                            <label class="label">Complemento</label>
+                            <input fullWidth nbInput placeholder="Digite o complemento" formControlName="complemento">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3">
+                            <label class="label">Bairro</label>
+                            <input fullWidth nbInput placeholder="Digite o bairro" formControlName="bairro">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="mb-3">
+                            <label class="label">Cidade</label>
+                            <input fullWidth nbInput placeholder="Digite a cidade" readonly formControlName="cidade">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">UF</label>
+                            <input fullWidth nbInput placeholder="Digite o UF" formControlName="uf" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </nb-card-body>
+        <nb-card-footer class="d-flex flex-row-reverse">
+            <button type="submit" nbButton outline status="primary" class="mx-1"
+                [disabled]="!formulario.valid">Salvar</button>
+            <button nbButton outline status="danger" (click)="close()" class="mx-1">Fechar</button>
+        </nb-card-footer>
+    </nb-card>
+</form>

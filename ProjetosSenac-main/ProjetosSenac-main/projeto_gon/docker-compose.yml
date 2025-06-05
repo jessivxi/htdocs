@@ -1,0 +1,11 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./src/app
+    command: npm ng

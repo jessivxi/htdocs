@@ -1,0 +1,41 @@
+<nb-card class="nb-card-modal card-padding" size="large">
+    <nb-card-header>
+        <button type="button" nbButton ghost class="close float-end" (click)="close()" size="tiny">
+            <nb-icon icon="close-outline"></nb-icon>
+        </button>
+    </nb-card-header>
+    <nb-card-body class="row">
+        <div class="d-flex justify-content-around">
+            <nb-card class="col-5" accent="info">
+                <nb-card-header>Colaboradores
+                    <button type="button" nbButton ghost class="ms-2 p-0 text-primary" (click)="close()">
+                        <i class="bi bi-plus-square fs-4"></i>
+                    </button>
+                </nb-card-header>
+                <nb-list>
+                    <nb-list-item *ngFor="let user of users">
+                        <div class="col-11 row">
+                            <div class="col-10">
+                                {{user.name}}
+                            </div>
+                        </div>
+                        <div class="col-2">FOTO</div>
+                    </nb-list-item>
+                </nb-list>
+            </nb-card>
+            <nb-card class="col-5" accent="danger">
+                <nb-card-header>Serviços</nb-card-header>
+                <nb-list>
+                    <nb-list-item *ngFor="let user of users">
+                        <div class="col-11 row">
+                            <div class="col-10">
+                                {{user.name}}
+                            </div>
+                        </div>
+                        <div class="col-2">VALOR</div>
+                    </nb-list-item>
+                </nb-list>
+            </nb-card>
+        </div>
+    </nb-card-body>
+</nb-card>

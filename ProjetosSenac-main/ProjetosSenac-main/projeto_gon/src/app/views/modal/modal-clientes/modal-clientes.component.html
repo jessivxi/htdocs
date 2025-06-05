@@ -1,0 +1,132 @@
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <nb-card class="nb-card-modal card-padding" size="large" [nbSpinner]="loading">
+        <nb-card-header>Cadastro de Clientes
+            <button type="button" nbButton ghost class="close float-end" (click)="close()" size="tiny">
+                <nb-icon icon="close-outline"></nb-icon>
+            </button>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">CPF<span class="text-danger">*</span></label>
+                            <nb-form-field>
+                                <input fullWidth nbInput formControlName="cpf"
+                                    placeholder="Digite o número CPF" [mask]="mask_cpf"
+                                    [status]="!formulario.controls['cpf'].valid ? 'danger' : 'basic'"
+                                    (blur)="getCliente(this.formulario.value.cpf,0)">
+                            </nb-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">Status</label>
+                            <nb-select placeholder="Selecione o status" fullWidth formControlName="status"
+                                [status]="!formulario.controls['status'].valid ? 'danger' : 'basic'">
+                                <nb-option value="1">Ativo</nb-option>
+                                <nb-option value="0">Inativo</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">Sexo</label>
+                            <nb-select placeholder="Selecione o genero" fullWidth formControlName="genero"
+                                [status]="!formulario.controls['genero'].valid ? 'danger' : 'basic'">
+                                <nb-option value="M">MASCULINO</nb-option>
+                                <nb-option value="F">FEMININO</nb-option>
+                                <nb-option value="O">OUTROS</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3">
+                            <label class="label">Nome <span class="text-danger">*</span></label>
+                            <input fullWidth nbInput formControlName="nome"
+                                [status]="!formulario.controls['nome'].valid ? 'danger' : 'basic'"
+                                placeholder="Digite a Nome">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">Data Nascimento</label>
+                            <input type="date" nbInput fullWidth placeholder="Digite a data"
+                                formControlName="data_nascimento">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">Telefone</label>
+                            <input fullWidth nbInput placeholder="Digite o telefone" formControlName="telefone"
+                                [status]="!formulario.controls['telefone'].valid ? 'danger' : 'basic'"
+                                mask="(00) 0000-0000">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">CEP</label>
+                            <nb-form-field>
+                                <input nbInput fullWidth placeholder="Digite o CEP" mask="00000-000"
+                                    formControlName="cep">
+                                <button type="button" nbSuffix nbButton ghost
+                                    (click)="getCEP(this.formulario.value.cep)">
+                                    <nb-icon icon="search-outline" pack="eva"></nb-icon>
+                                </button>
+                            </nb-form-field>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <div class="mb-3">
+                            <label class="label">Logradouro</label>
+                            <input fullWidth nbInput placeholder="AV / Rua / Estrada" formControlName="logradouro">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">Número</label>
+                            <input fullWidth nbInput placeholder="Digite o número" formControlName="numero">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <div class="mb-3">
+                            <label class="label">Complemento</label>
+                            <input fullWidth nbInput placeholder="Digite o complemento" formControlName="complemento">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3">
+                            <label class="label">Bairro</label>
+                            <input fullWidth nbInput placeholder="Digite o bairro" formControlName="bairro">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="mb-3">
+                            <label class="label">Cidade</label>
+                            <input fullWidth nbInput placeholder="Digite a cidade" readonly formControlName="cidade">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">UF</label>
+                            <input fullWidth nbInput placeholder="Digite o UF" formControlName="uf" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </nb-card-body>
+        <nb-card-footer class="d-flex flex-row-reverse">
+            <button type="submit" nbButton outline status="primary" class="mx-1"
+                [disabled]="!formulario.valid">Salvar</button>
+            <button nbButton outline status="danger" (click)="close()" class="mx-1">Fechar</button>
+        </nb-card-footer>
+    </nb-card>
+</form>

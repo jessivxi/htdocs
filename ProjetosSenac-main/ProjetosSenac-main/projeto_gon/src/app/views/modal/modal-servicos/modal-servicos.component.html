@@ -1,0 +1,67 @@
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <nb-card class="nb-card-modal card-padding" size="large" [nbSpinner]="loading">
+        <nb-card-header>Cadastro de Serviços
+            <button type="button" nbButton ghost class="close float-end" (click)="close()" size="tiny">
+                <nb-icon icon="close-outline"></nb-icon>
+            </button>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">Status</label>
+                            <nb-select placeholder="Selecione o status" fullWidth formControlName="status"
+                                [status]="!formulario.controls['status'].valid ? 'danger' : 'basic'">
+                                <nb-option value="1">Ativo</nb-option>
+                                <nb-option value="0">Inativo</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <div class="mb-3">
+                            <label class="label">Nome <span class="text-danger">*</span></label>
+                            <input fullWidth nbInput formControlName="nome"
+                                [status]="!formulario.controls['nome'].valid ? 'danger' : 'basic'"
+                                placeholder="Digite a Nome">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">Tempo Min</label>
+                            <input type="number" nbInput fullWidth placeholder="Minutos"
+                            [status]="!formulario.controls['tempo'].valid ? 'danger' : 'basic'"
+                                formControlName="tempo">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <div class="mb-3">
+                            <label class="label">R$</label>
+                            <input fullWidth nbInput formControlName="valor" placeholder="000,00"
+                                [status]="!formulario.controls['valor'].valid ? 'danger' : 'basic'">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label class="label">Descrição</label>
+                            <textarea rows="6" nbInput fullWidth formControlName="descricao" placeholder="Descreção"
+                            [status]="!formulario.controls['descricao'].valid ? 'danger' : 'basic'"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nb-card-body>
+        <nb-card-footer class="d-flex flex-row-reverse">
+            <button type="submit" nbButton outline status="primary" class="mx-1"[disabled]="!formulario.valid">
+                Salvar
+            </button>
+            <button nbButton outline status="danger" (click)="close()" class="mx-1">
+                Fechar
+            </button>
+        </nb-card-footer>
+    </nb-card>
+</form>

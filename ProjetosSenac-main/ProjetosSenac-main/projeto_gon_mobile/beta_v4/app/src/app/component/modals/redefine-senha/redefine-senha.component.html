@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()"><i class="bi bi-arrow-left fs-2"></i></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="h-75  d-flex justify-content-between align-items-center">
+    <div class="text-center w-100">
+      <h1 class="m-4">Redefinir Senha</h1>
+      <div class="form-floating">
+        <input type="password" class="form-control" required id="senha2">
+        <label for="senha2">Senha</label>
+      </div>
+      <form action="">
+        <div class="form-floating mt-2">
+          <input type="password" class="form-control" required id="senha">
+          <label for="senha">Senha</label>
+        </div>
+        <button class="btn btn-dark mt-2 w-100 text-light" type="submit">Validar código</button>
+      </form>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,17 @@
+@Input = Cria uma entrada de dados externos no seu sistema.
+
+
+@Output = Cria uma saída de dados internos para o lado de fora do programa.
+
+
+@Injectable = Quando é inserido em uma classe ou serviço, você define que ele pode ser usado como uma dependência em outros componentes. O "providedIn" define quem pode usá-lo como injetável, liberando de forma global, por módulos, arquivos...
+
+
+@Observable = Eles basicamente ficam analisando os dados e emitem respostas de acordo com a maneira que foram instruídos, podem ser chamados inúmeras vezes e receber vários valores diferentes, sendo essas respostas: sucesso (next()), erro (error()) e completo (complete()).
+
+
+Class - BehaviorSubject = É a mesma coisa que o Observable, porém assim que ele é chamado ele já se atribui o valor mais recente, diferente do Observable, que só registra o valor quando há alguma mudança. Ele também guarda o valor anterior e funciona de maneira imediata.
+
+
+Class - OnInit = OnInit é quase a mesma coisa que o Constructor, só que o OnInit inicializa funções que só podem ser inicializadas depois que o código principal já carregou. (Realmente não tem muito o quê explicar)
+

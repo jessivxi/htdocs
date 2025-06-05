@@ -1,0 +1,113 @@
+@use 'themes' as *;
+
+@use '@nebular/theme/styles/globals' as *;
+
+@include nb-install() {
+  @include nb-theme-global();
+}
+
+/* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+/* You can add global styles to this file, and also import other style files */
+
+/* Begin style css */
+.nb-theme-dark .table {
+  color: #FFFFFF;
+}
+
+.nb-theme-cosmic .table {
+  color: #FFFFFF;
+}
+
+.nb-theme-default .table {
+  color: #212529;
+}
+
+.nb-theme-light .table {
+  color: #212529;
+}
+
+.nb-card-modal {
+  min-width: 90vw !important;
+  max-width: 95vw !important;
+  margin: 0 auto;
+}
+
+nb-layout .layout .layout-container .content .columns nb-layout-column {
+  padding: 10px !important;
+}
+
+// ANGULAR2 SMART TABLE
+angular2-smart-table table tr th a,
+.angular2-smart-title,
+a.sort.asc,
+a.sort.desc {
+  font-weight: 700 !important;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+.angular2-smart-actions {
+
+  angular2-st-tbody-edit-delete,
+  angular2-st-tbody-create-cancel,
+  angular2-st-actions,
+  angular2-st-tbody-custom {
+    margin: auto;
+    height: 0 !important;
+  }
+
+}
+
+angular2-smart-table .angular2-smart-actions a.angular2-smart-action {
+  font-size: 1.5rem !important;
+}
+
+angular2-smart-table table tr th a,
+angular2-smart-table table tr th,
+angular2-smart-table table tr td {
+  padding: 0.3rem 1rem !important;
+  font-size: 0.83rem !important;
+}
+
+.angular2-smart-pagination-per-page {
+  font-size: small;
+}
+.angular2-smart-pagination-per-page select {
+  font-size: small;
+  padding: 0.375rem 0.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.example-items-rows {
+  display: flex;
+  justify-content: center;
+}
+
+.example-items-rows>* {
+  margin: 0 0.1rem !important;
+}
+
+.subtitulo {
+  font-size: .8rem;
+}
+
+// .angular2-smart-action .angular2-smart-action-add-add .ng-star-inserted a{
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 1.75rem!important;
+//   padding: 0.375rem 0.5rem;
+//   border-color: #36f;
+//   background-color: #36f;
+//   color: #fff;
+//   border-radius: 0.375rem 
+// }

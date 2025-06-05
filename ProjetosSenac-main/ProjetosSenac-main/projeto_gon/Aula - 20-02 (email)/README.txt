@@ -1,0 +1,1 @@
+A pasta "php_mailer" precisa ser colocada em algum lugar pra API de email funcionar!
