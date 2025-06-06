@@ -10,11 +10,11 @@ if($_POST) {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $remember = $_POST["remember"] ?? "off";
-
+    
     // VERIFICA SE O EMAIL E SENHA ESTÃO CORRETOS
     require("requests/login/get.php");
     // var_dump($response);exit;
-    if ($response['status'] == "success") {
+    if (isset($response['status']) && $response['status'] == "success") {
         $_SESSION["autenticado"] = true; // CRIA VARIÁVEL GLOBAL
         $_SESSION["tempo_login"] = time(); // CRIA VARIÁVEL COM TEMPO DE LOGIN
 

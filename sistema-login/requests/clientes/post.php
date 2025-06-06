@@ -11,7 +11,7 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTPHEADER => array(
         'Content-Type: application/json'
     ),
-    CURLOPT_POSTFIELDS => json_encode($postfield) //transforma a array "postfields" em JSON
+    CURLOPT_POSTFIELDS => json_encode($postfields),
 ));
 // RECUPERA O RETORNO DO CURL
 $response = curl_exec($curl);

@@ -1,34 +1,41 @@
 <?php
+require_once '../../headers.php';
+require_once '../../conexao.php';
 
-require_once 'conexao.php';
-
-$metodo = $_SERVER['REQUEST_METHOD'];
-$rota = $_GET['rota'] ?? '';
-// Verificação simplificada de autenticação
-
-switch ("$metodo:$rota") {
-case 'POST:login-admin':
-    require 'auth/login-admin.php';
-    break;
-
-case 'GET:admin':
-    require 'admin/listar.php';
-    break;
-    
-case 'POST:admin':
-    require 'admin/criar.php';
-    break;
-    
-case 'PUT:admin':
-    require 'admin/atualizar.php';
-    break;
-    
-case 'DELETE:admin':
-    require 'admin/deletar.php';
-    break;
-
+// Roteamento baseado no método HTTP
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'GET':
+        // GET /administrador/ - Lista todos
+        // GET /administrador/?id=1 - Busca específico
+        require 'get.php';
+        break;
+        
+    case 'POST':
+        // POST /administrador/ - Cria novo admin
+        // Requer corpo JSON com dados do admin
+        require 'post.php';
+        break;
+        
+    case 'PUT':
+        // PUT /administrador/ - Atualiza admin existente
+        // Requer corpo JSON com dados e ID
+        require 'put.php';
+        break;
+        
+    case 'DELETE':
+        // DELETE /administrador/ - Remove admin
+        // Requer corpo JSON com ID e token de autorização
+        require 'delete.php';
+        break;
+        
     default:
-        echo json_encode(['erro' => 'Rota não encontrada']);
-        http_response_code(404);
+        // Método não permitido
+        http_response_code(405);
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Método não permitido',
+            'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE']
+        ]);
+        break;
 }
-
+?>

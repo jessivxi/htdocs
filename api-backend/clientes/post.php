@@ -19,7 +19,6 @@ try {
         $estado = $postfields['endereco']['estado'] ?? null;
         $cep = $postfields['endereco']['cep'] ?? null;
 
-
         // Verifica campos obrigatórios
         if (empty($nome) || empty($postfields['endereco'])) {
             http_response_code(400);
@@ -27,13 +26,13 @@ try {
         }
 
         $sql = "
-        INSERT INTO clientes (nome, cpf, email, whatsapp, imagem, logradouro, numero, complemento, bairro, cidade, estado, cep) VALUES 
+        INSERT INTO clientes (nome, imagem, cpf, email, whatsapp, logradouro, numero, complemento, bairro, cidade, estado, cep) VALUES 
         (
             :nome, 
-            :cpf, 
+            :imagem, 
+            :cpf,
             :email,
             :whatsapp,
-            :imagem,
             :logradouro, 
             :numero, 
             :complemento, 
@@ -45,10 +44,10 @@ try {
 
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
-        $stmt->bindParam(':cpf', $cpf, is_null($idade) ? PDO::PARAM_NULL : PDO::PARAM_INT);
+        $stmt->bindParam(':imagem', $imagem, is_null($imagem) ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindParam(':cpf', $cpf, is_null($cpf) ? PDO::PARAM_NULL : PDO::PARAM_STR);
         $stmt->bindParam(':email', $email, is_null($email) ? PDO::PARAM_NULL : PDO::PARAM_STR);
         $stmt->bindParam(':whatsapp', $whatsapp, is_null($whatsapp) ? PDO::PARAM_NULL : PDO::PARAM_STR);
-        $stmt->bindParam(':imagem', $imagem, is_null($imagem) ? PDO::PARAM_NULL : PDO::PARAM_STR);
         $stmt->bindParam(':logradouro', $logradouro);
         $stmt->bindParam(':numero', $numero);
         $stmt->bindParam(':complemento', $complemento, is_null($complemento) ? PDO::PARAM_NULL : PDO::PARAM_STR);

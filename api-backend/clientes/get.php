@@ -74,6 +74,7 @@ try {
     if (empty($data)) {
         // Se o resultado for vazio, retorna um erro
         http_response_code(204);
+        exit;
     } else {
         // Organizar o endereço como objeto
         foreach ($data as $key => $cliente) {
@@ -114,50 +115,3 @@ try {
     // Fecha a conexão com o banco de dados
     $conn = null;
 }
-exit;
-
-
-// VERIFICAR SE O ID FOI PASSADO NA URL E SE É UM NÚMERO
-if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
-    $id = $_GET["id"];
-    // BUSCAR O CLIENTE COM O ID PASSADO NA URL
-    $found = false;
-    foreach ($data as $cliente) {
-        if ($cliente->id == $id) {
-            $data = $cliente;
-            $found = true;
-            break;
-        }
-    }
-    // SE O CLIENTE NÃO FOI ENCONTRADO, RETORNAR UM ERRO
-    // $data = $found ? $data : null;
-    if(!$found) {
-        http_response_code(204);
-    }
-} elseif (isset($_GET["name"]) && is_string($_GET["name"])) {
-    $name = $_GET["name"];
-    $result = array();
-    // BUSCAR O CLIENTE COM O ID PASSADO NA URL
-    $found = false;
-    foreach ($data as $cliente) {
-        if (stripos($cliente->name, $name) !== false) {
-            $result[] = $cliente;
-            $found = true;
-        }
-    }
-    // SE O CLIENTE NÃO FOI ENCONTRADO, RETORNAR UM ERRO
-    // $data = $found ? $data : null;
-    if(!$found) {
-        http_response_code(204);
-    } else {
-        $data = $result;
-    }
-}
-
-echo json_encode(
-    array(
-        'status' => 'success',
-        'message' => 'GET method called',
-        'data' => $data
-    )
-);

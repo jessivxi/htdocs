@@ -1,30 +1,51 @@
 <?php
+//cria um novo administrador
+// Inclui o arquivo de conexão com o banco de dados
 require_once '../conexao.php';
+require_once '../headers.php';
 
-//criar um novo administrador
+
+// 1. Pegar os dados enviados no corpo da requisição
 $dados = json_decode(file_get_contents('php://input'), true);
 
-if (!empty($dados['nome']) && !empty($dados['email']) && !empty($dados['senha'])) {
-    // Verifique se é um admin tentando criar outro admin
-    if (!isset($_SERVER['HTTP_TOKEN']) || $_SERVER['HTTP_TOKEN'] !== 'TOKEN_ADMIN_PRINCIPAL') {
-        echo json_encode(['erro' => 'Acesso não autorizado']);
-        exit;
-    }
+// 2. Validar campos obrigatórios 
+if (!isset($dados['nome']) || !isset($dados['email']) || !isset($dados['senha'])) {
+    http_response_code(400);
+    echo json_encode(['erro' => 'Campos obrigatórios faltando']);
+    exit;
+}
 
-    $senhaHash = password_hash($dados['senha'], PASSWORD_DEFAULT);
+//isset() = detecta se o cliente esqueceu de enviar o campo
+//empty() = não distingue entre não enviado e enviado vazio
+
+// 3. Preparar a query SQL (PROTEJA CONTRA SQL INJECTION!)
+$sql = "INSERT INTO administradores (nome, email, senha, nivel_acesso, status) 
+        VALUES (:nome, :email, :senha, :nivel_acesso, :status)";
+
+// 4. Hash da senha (
+$senhaHash = password_hash($dados['senha'], PASSWORD_DEFAULT);
+
+try {
+    $stmt = $pdo->prepare($sql);
     
-    $stmt = $pdo->prepare("INSERT INTO administradores (nome, email, senha, nivel_acesso) VALUES (?, ?, ?, ?)");
-    if ($stmt->execute([
-        $dados['nome'],
-        $dados['email'],
-        $senhaHash,
-        $dados['nivel_acesso'] ?? 'suporte'
-    ])) {
-        echo json_encode(['sucesso' => 'Admin criado com ID: ' . $pdo->lastInsertId()]);
-    } else {
-        echo json_encode(['erro' => 'Erro ao criar admin']);
+    // 5. Executar a query com os parâmetros
+    $sucesso = $stmt->execute([
+        ':nome' => $dados['nome'],
+        ':email' => $dados['email'],
+        ':senha' => $senhaHash,
+        ':nivel_acesso' => $dados['nivel_acesso'] ?? 'suporte',
+        ':status' => $dados['status'] ?? 'ativo'
+    ]);
+
+    if ($sucesso) {
+        http_response_code(201);
+        echo json_encode([
+            'mensagem' => 'Administrador criado com sucesso',
+            'id' => $pdo->lastInsertId() // Retorna o ID do novo administrador
+        ]);
     }
-} else {
-    echo json_encode(['erro' => 'Dados incompletos']);
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo json_encode(['erro' => 'Erro ao criar administrador: ' . $e->getMessage()]);
 }
 ?>

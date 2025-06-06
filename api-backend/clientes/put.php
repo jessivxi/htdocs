@@ -34,9 +34,9 @@ try {
         UPDATE clientes SET 
             nome = :nome, 
             cpf = :cpf, 
+            imagem = :imagem,
             email = :email,
             whatsapp = :whatsapp,
-            imagem = :imagem,
             logradouro = :logradouro, 
             numero = :numero, 
             complemento = :complemento, 
@@ -50,10 +50,10 @@ try {
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
+        $stmt->bindParam(':imagem', $imagem, is_null($imagem) ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindParam(':cpf', $cpf, is_null($cpf) ? PDO::PARAM_NULL : PDO::PARAM_STR);
         $stmt->bindParam(':email', $email, is_null($email) ? PDO::PARAM_NULL : PDO::PARAM_STR);
         $stmt->bindParam(':whatsapp', $whatsapp, is_null($whatsapp) ? PDO::PARAM_NULL : PDO::PARAM_STR);
-        $stmt->bindParam(':imagem', $imagem, is_null($imagem) ? PDO::PARAM_NULL : PDO::PARAM_STR);
-        $stmt->bindParam(':cpf', $cpf, is_null($idade) ? PDO::PARAM_NULL : PDO::PARAM_INT);
         $stmt->bindParam(':logradouro', $logradouro);
         $stmt->bindParam(':numero', $numero);
         $stmt->bindParam(':complemento', $complemento, is_null($complemento) ? PDO::PARAM_NULL : PDO::PARAM_STR);

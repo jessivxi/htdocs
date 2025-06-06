@@ -1,22 +1,50 @@
 <?php
-require_once '../conexao.php';
+//deleta um administrador
+// Inclui o arquivo de conexão com o banco de dados
+require_once '../../conexao.php';
+require_once '../../headers.php';
 
-$dados = json_decode(file_get_contents('php://input'), true);
+try {
+    $dados = json_decode(file_get_contents('php://input'), true);
 
-// Apenas admin principal pode deletar
-if (!isset($_SERVER['HTTP_TOKEN']) || $_SERVER['HTTP_TOKEN'] !== 'TOKEN_ADMIN_PRINCIPAL') {
-    echo json_encode(['erro' => 'Acesso não autorizado']);
-    exit;
-}
-
-if (!empty($dados['id'])) {
-    $stmt = $pdo->prepare("DELETE FROM administradores WHERE id = ?");
-    if ($stmt->execute([$dados['id']])) {
-        echo json_encode(['sucesso' => 'Admin deletado']);
-    } else {
-        echo json_encode(['erro' => 'Erro ao deletar']);
+    // Autenticação 
+    $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+    if (!hash_equals('TOKEN_SEGURO_AQUI', $token)) {
+        http_response_code(403);
+        echo json_encode(['erro' => 'Acesso não autorizado']);
+        exit;
     }
-} else {
-    echo json_encode(['erro' => 'ID não informado']);
+
+    // Validação do ID
+    if (!isset($dados['id']) || !is_numeric($dados['id']) || $dados['id'] <= 0) {
+        http_response_code(400);
+        echo json_encode(['erro' => 'ID inválido ou não informado']);
+        exit;
+    }
+
+    // Verifica existência antes de deletar
+    $check = $pdo->prepare("SELECT id FROM administradores WHERE id = ?");
+    $check->execute([$dados['id']]);
+    
+    if (!$check->fetch()) {
+        http_response_code(404);
+        echo json_encode(['erro' => 'Administrador não encontrado']);
+        exit;
+    }
+
+    // Executa a exclusão
+    $stmt = $pdo->prepare("DELETE FROM administradores WHERE id = ?");
+    
+    if ($stmt->execute([$dados['id']])) {
+        http_response_code(200);
+        echo json_encode(['sucesso' => 'Administrador removido com sucesso']);
+    } else {
+        http_response_code(500);
+        echo json_encode(['erro' => 'Falha ao remover administrador']);
+    }
+    
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo json_encode(['erro' => 'Erro no banco de dados: ' . $e->getMessage()]);
 }
 ?>

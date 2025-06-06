@@ -29,15 +29,16 @@ header("Pragma: no-cache");
         <!-- Os clientes serão carregados aqui via PHP -->
         <?php
         // SE HOUVER CLIENTES NA SESSÃO, EXIBIR
-        if(!empty($_SESSION["clientes"])) {
-            foreach($_SESSION["clientes"] as $key => $client) {
+        require("../requests/clientes/get.php");
+        if(!empty($response)) {
+            foreach($response["data"] as $key => $client) {
                 echo '
                 <tr>
-                    <th style="border:1px solid black" scope="row">'.($key + 1).'</th>
-                    <td style="border:1px solid black">'.$client["clientName"].'</td>
-                    <td style="border:1px solid black">'.$client["clientCPF"].'</td>
-                    <td style="border:1px solid black">'.$client["clientEmail"].'</td>
-                    <td style="border:1px solid black">'.$client["clientWhatsapp"].'</td>
+                    <th style="border:1px solid black" scope="row">'.$client["id_cliente"].'</th>
+                    <td style="border:1px solid black">'.$client["nome"].'</td>
+                    <td style="border:1px solid black">'.$client["cpf"].'</td>
+                    <td style="border:1px solid black">'.$client["email"].'</td>
+                    <td style="border:1px solid black">'.$client["whatsapp"].'</td>
                 </tr>
                 ';
             }

@@ -9,9 +9,11 @@ if(isset($_GET["key"])) {
     // if (file_exists("imagens/" . $_SESSION["clientes"][$key]["clientImage"])) {
     //     unlink("imagens/" . $_SESSION["clientes"][$key]["clientImage"]);
     // }
-    // RQUISITAR EXCLUSÃO DO CLIENTE
+    
+    // REQUISITAR EXCLUSÃO DO CLIENTE
     require("../requests/clientes/delete.php");
     $_SESSION["msg"] = $response["message"];
+    
 }
 header("Location: ./");
 exit;

@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteBase /API-DESIGNODYSSEY/
+
+# Redireciona para index.php dentro das pastas
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/?$ $1/index.php [L,QSA]
+
+# Para rotas com ID (ex: /usuarios/123)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/([^/]+)/?$ $1/index.php?id=$2 [L,QSA]

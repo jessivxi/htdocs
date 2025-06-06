@@ -2,8 +2,7 @@
 // CHAMA O ARQUIVO ABAIXO NESTA TELA
 include "../verificar-autenticacao.php";
 
-
-try{
+try {
     if(!$_POST){
         throw new Exception("Acesso indevído! Tente novamente.");
     }
@@ -30,19 +29,16 @@ try{
         $_POST["clientImage"] = $_POST["currentClientImage"];
     }
 
-
-
-
     $msg = '';
     if ($_POST["clientId"] == "") {
-
-        $postfield = array( //
+        // SE O ID DO CLIENTE ESTIVER VAZIO, SIGNIFICA QUE É UM NOVO CLIENTE
+        $postfields = array (
             "nome" => $_POST["clientName"],
+            "cpf" => $_POST["clientCPF"],
             "email" => $_POST["clientEmail"],
             "whatsapp" => $_POST["clientWhatsapp"],
             "imagem" => $_POST["clientImage"],
-            "cpf" => $_POST["clientCPF"],
-            "endereco" => array(
+            "endereco" => array (
                 "cep" => $_POST["clientCEP"],
                 "logradouro" => $_POST["clientStreet"],
                 "numero" => $_POST["clientNumber"],
@@ -52,33 +48,30 @@ try{
                 "estado" => $_POST["clientState"]
             )
         );
-        require("../requests/clientes/post.php"); // CADASTRAR CLIENTE
 
-    } else { 
-            $postfield = array(
-            "id" => $_POST["clientId"],
-            "nome" => $_POST["clientName"],
-            "email" => $_POST["clientEmail"],
-            "whatsapp" => $_POST["clientWhatsapp"],
-            "imagem" => $_POST["clientImage"],
-            "cpf" => $_POST["clientCPF"],
-            "endereco" => array(
-                "cep" => $_POST["clientCEP"],
-                "logradouro" => $_POST["clientStreet"],
-                "numero" => $_POST["clientNumber"],
-                "complemento" => $_POST["clientComplement"],
-                "bairro" => $_POST["clientNeighborhood"],
-                "cidade" => $_POST["clientCity"],
-                "estado" => $_POST["clientState"]
-            )
-        );
+        require("../requests/clientes/post.php");
+    } else {
         // SENÃO, SIGNIFICA QUE É UM PRODUTO JÁ CADASTRADO
-        require("../requests/clientes/put.php"); // ATUALIZAR CLIENTE
-        
+        $postfields = array (
+            "id_cliente" => $_POST["clientId"],
+            "nome" => $_POST["clientName"],
+            "cpf" => $_POST["clientCPF"],
+            "email" => $_POST["clientEmail"],
+            "whatsapp" => $_POST["clientWhatsapp"],
+            "imagem" => $_POST["clientImage"],
+            "endereco" => array (
+                "cep" => $_POST["clientCEP"],
+                "logradouro" => $_POST["clientStreet"],
+                "numero" => $_POST["clientNumber"],
+                "complemento" => $_POST["clientComplement"],
+                "bairro" => $_POST["clientNeighborhood"],
+                "cidade" => $_POST["clientCity"],
+                "estado" => $_POST["clientState"]
+            )
+        );
+        require("../requests/clientes/put.php");
     }
-    // var_dump($postfield);exit;
-    
-    $_SESSION["msg"] = $response['message']; 
+    $_SESSION["msg"] = $response['message'];
 
 }catch(Exception $e){
     $_SESSION["msg"] = $e->getMessage();
