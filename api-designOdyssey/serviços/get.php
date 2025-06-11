@@ -8,7 +8,7 @@ require_once '../headers.php';
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 
 try{
-    if ($id) {
+    if (isset($id)) {
         $stmt = $pdo->prepare("SELECT id, id_designer, titulo, categoria, preco_base FROM servicos WHERE id = ?"); 
         $stmt->execute([$id]); //stmt= Statement = Prepara uma declaração para execução
         $service = $stmt->fetch(PDO::FETCH_ASSOC);

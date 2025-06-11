@@ -1,6 +1,6 @@
 <?php
-require_once '../conexao.php';
-require_once '../headers.php';
+require_once 'conexao.php';
+require_once 'headers.php';
 
 //listar usuarios
 
@@ -8,7 +8,7 @@ require_once '../headers.php';
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 
 try{
-    if ($id) {
+    if (isset($id)) {
         $stmt = $pdo->prepare("SELECT id, nome, email, tipo, status FROM usuarios WHERE id = ?");
         $stmt->execute([$id]);
         $usuarios = $stmt->fetch(PDO::FETCH_ASSOC);

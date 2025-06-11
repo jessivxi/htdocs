@@ -1,8 +1,8 @@
 <?php
 //atualiza um administrador
 // Inclui o arquivo de conexão com o banco de dados
-require_once '../../conexao.php';
-require_once '../../headers.php';
+require_once '../conexao.php';
+require_once '../headers.php';
 
 // 1. Pegar o ID da URL (ex: /administrador/5)
 $id = isset($_GET['id']) ? $_GET['id'] : null;

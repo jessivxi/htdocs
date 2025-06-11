@@ -1,8 +1,8 @@
 <?php
 //deleta um administrador
 // Inclui o arquivo de conexão com o banco de dados
-require_once '../../conexao.php';
-require_once '../../headers.php';
+require_once '../conexao.php';
+require_once '../headers.php';
 
 try {
     $dados = json_decode(file_get_contents('php://input'), true);

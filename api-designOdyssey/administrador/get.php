@@ -8,7 +8,7 @@ require_once '../headers.php';
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 
 try{
-    if ($id) {
+    if (isset($id)) {
         $stmt = $pdo->prepare("SELECT id, nome, email,nivel_acesso, status FROM administradores WHERE id = ?");
         $stmt->execute([$id]);
         $admin = $stmt->fetch(PDO::FETCH_ASSOC);
