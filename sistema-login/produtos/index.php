@@ -28,6 +28,7 @@ if (isset($_GET["key"])) {
     <title>Dashboard - Cadastro de Produtos</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -47,7 +48,7 @@ if (isset($_GET["key"])) {
                     <a href="/produtos/exportar.php" class="btn btn-success btn-sm float-left">Excel</a>
                     <a href="/produtos/exportar_pdf.php" class="btn btn-danger btn-sm float-left">PDF</a>
                 </h2>
-                <table class="table table-striped">
+                <table id="myTable" class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -77,7 +78,7 @@ if (isset($_GET["key"])) {
                                     <td class="text-center">'.$product["quantidade"].'</td>
                                     <td class="text-center">R$ '.number_format($product["preco"],2,',','.').'</td>
                                     <td>
-                                        <a href="/produtos/?key='.$product["id_produto"].'" class="btn btn-warning">Editar</a>
+                                        <a href="/produtos/formulario.php?key='.$product["id_produto"].'" class="btn btn-warning">Editar</a>
                                         <a href="/produtos/remover.php?key='.$product["id_produto"].'" class="btn btn-danger">Excluir</a>
                                     </td>
                                 </tr>
@@ -101,8 +102,15 @@ if (isset($_GET["key"])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- jQuery Mask Plugin -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+    <script>
+        let table = new DataTable('#myTable', {
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.3.2/i18n/pt-BR.json',
+            },
+        });
+    </script>
 
 </body>
 

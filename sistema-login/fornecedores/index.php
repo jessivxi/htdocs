@@ -20,13 +20,16 @@ if (isset($_GET["key"])) {
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Cadastro de Fornecedores</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css" rel="stylesheet">
 </head>
+
 <body>
     <?php
     include "../mensagens.php";
@@ -37,8 +40,6 @@ if (isset($_GET["key"])) {
     <div class="container mt-5">
         <div class="row">
             <div class="col-md">
-                <!-- Formulário de cadastro de fornecedores -->
-            <div class="col-md-">
                 <!-- Tabela de fornecedores cadastrados -->
                 <h2>
                     Fornecedores Cadastrados
@@ -46,7 +47,7 @@ if (isset($_GET["key"])) {
                     <a href="/fornecedores/exportar.php" class="btn btn-success btn-sm float-left">Excel</a>
                     <a href="/fornecedores/exportar_pdf.php" class="btn btn-danger btn-sm float-left">PDF</a>
                 </h2>
-                <table class="table table-striped">
+                <table id="myTable" class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -69,11 +70,11 @@ if (isset($_GET["key"])) {
                                 <tr>
                                     <th scope="row">'.$provider["id_fornecedor"].'</th>
                                     <td>'.$provider["razao_social"].'</td>
-                                    <td>'.$provider["CNPJ"].'</td>
+                                    <td>'.$provider["cnpj"].'</td>
                                     <td>'.$provider["email"].'</td>
                                     <td>'.$provider["telefone"].'</td>
                                     <td>
-                                        <a href="/fornecedores/?key='.$provider["id_fornecedor"].'" class="btn btn-warning">Editar</a>
+                                        <a href="/fornecedores/formulario.php?key='.$provider["id_fornecedor"].'" class="btn btn-warning">Editar</a>
                                         <a href="/fornecedores/remover.php?key='.$provider["id_fornecedor"].'" class="btn btn-danger">Excluir</a>
                                     </td>
                                 </tr>
@@ -99,39 +100,16 @@ if (isset($_GET["key"])) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- jQuery Mask Plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-
-    <script> 
-    $('#providerCEP').on('blur', function() {
-        var cep = $(this).val().replace(/\D/g, '');
-        // Verifica se o CEP tem 8 dígitos
-        if (cep.length === 8) {
-            // Faz a requisição para a API ViaCEP
-            $.getJSON('https://viacep.com.br/ws/' + cep + '/json/?callback=?', function(data) {
-                if (!data.erro) {
-                    $('#providerStreet').val(data.logradouro);
-                    $('#providerNeighborhood').val(data.bairro);
-                    $('#providerCity').val(data.localidade);
-                    $('#providerState').val(data.uf);
-                } else {
-                    alert('CEP não encontrado.');
-                    $("#providerCEP").val("");
-                    $("#providerStreet").val("");
-                    $("#providerNeighborhood").val("");
-                    $("#providerCity").val("");
-                    $("#providerState").val("");
-                }
-            });
-        } else {
-            alert('Formato de CEP inválido.');
-            // Limpa os campos de endereço
-            $("#providerCEP").val("");
-            $("#providerStreet").val("");
-            $("#providerNeighborhood").val("");
-            $("#providerCity").val("");
-            $("#providerState").val("");
-        }
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+    <script>
+    let table = new DataTable('#myTable', {
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/2.3.2/i18n/pt-BR.json',
+        },
     });
     </script>
 
 </body>
+
 </html>
