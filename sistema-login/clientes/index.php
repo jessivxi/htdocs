@@ -42,12 +42,13 @@ if (isset($_GET["key"])) {
         <div class="row">
             <div class="col-md">
                 <!-- Tabela de clientes cadastrados -->
-                <h2>
-                    Clientes Cadastrados
+                <div class="card">
+                    <h2>Clientes Cadastrados</h2>
+                <div>
                     <a href="/clientes/formulario.php" class="btn btn-secondary btn-sm float-left">Novo</a>
                     <a href="/clientes/exportar.php" class="btn btn-success btn-sm float-left">Excel</a>
                     <a href="/clientes/exportar_pdf.php" class="btn btn-danger btn-sm float-left">PDF</a>
-                </h2>
+                </div>
                 <table id="myTable" class="table table-striped">
                     <thead>
                         <tr>
@@ -60,6 +61,7 @@ if (isset($_GET["key"])) {
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
+                </div>
                     <tbody id="clientTableBody">
                         <!-- Os clientes serão carregados aqui via PHP -->
                         <?php

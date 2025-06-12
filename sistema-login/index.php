@@ -53,7 +53,8 @@ $pagina = "home";
                                     (<?php echo isset($response['data']) ? count($response['data']) : 0;?>)</h5>
                             </div>
                             <div class="card-footer text-center">
-                                <a href="<?php echo $_SESSION["url"];?>/fornecedores" class="btn btn-primary">Acessar</a>
+                                <a href="<?php echo $_SESSION["url"];?>/fornecedores"
+                                    class="btn btn-primary">Acessar</a>
                             </div>
                         </div>
                     </div>
