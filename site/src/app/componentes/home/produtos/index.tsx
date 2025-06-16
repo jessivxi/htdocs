@@ -27,8 +27,13 @@ export  async function Produtos() {
             "Content-Type": "application/json",
         },
     }). then((res) => {
-        console.log(res);
-    })
+        // console.log(res); = //para verificar se a requisição foi bem sucedida
+        if (!res.ok) {
+            throw new Error("Erro ao buscar produtos");
+        }
+    })catch (error) {
+            console.error("Erro:", error);
+    });
 
     return (
         <section className="w-full bg-gray-100 flex flex-col items-center justify-center py-10">
