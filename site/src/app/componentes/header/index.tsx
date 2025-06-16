@@ -1,6 +1,6 @@
 export function Header(){
     return(
-        <header className="flex items-center justify-between p-4 bg-gray-800 text-white">
+        <header className="flex items-center justify-between p-4 bg-gray-100 text-black">
             <div className="text-lg font-bold">logo</div>
             <nav>
                 <ul className="flex space-x-4">
