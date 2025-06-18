@@ -38,13 +38,14 @@ try {
 
 
     } else {
-        http_response_code(400);
         // Se não existir dados, retornar erro
-        throw new Exception('Nenhum dado foi enviado!');
+        throw new Exception('Nenhum dado foi enviado!', 400);
     }
 
 } catch (Exception $e) {
     // Se houver erro, retorna o erro
+    $code = !empty($e->getCode()) ? $e->getCode() : 500; // Código de erro 500 - Internal Server Error  (em caso de erro não definido)
+    http_response_code($code);
     $result = array(
         'status' => 'error',
         'message' => $e->getMessage(),
