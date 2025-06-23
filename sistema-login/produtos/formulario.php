@@ -46,7 +46,7 @@ if (isset($_GET["key"])) {
                         <h2> Cadastrar Produtos</h2>
                     </div>
                     <div class="card-body">
-                        <form id="productForm" action="/produtos/cadastrar.php" method="POST"
+                        <form id="myForm" action="/produtos/cadastrar.php" method="POST"
                             enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-md-3">

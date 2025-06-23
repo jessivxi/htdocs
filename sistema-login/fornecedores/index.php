@@ -40,56 +40,63 @@ if (isset($_GET["key"])) {
     <div class="container mt-5">
         <div class="row">
             <div class="col-md">
-                <!-- Tabela de fornecedores cadastrados -->
-                <h2>
-                    Fornecedores Cadastrados
-                    <a href="/fornecedores/formulario.php" class="btn btn-secondary btn-sm float-left">Novo</a>
-                    <a href="/fornecedores/exportar.php" class="btn btn-success btn-sm float-left">Excel</a>
-                    <a href="/fornecedores/exportar_pdf.php" class="btn btn-danger btn-sm float-left">PDF</a>
-                </h2>
-                <table id="myTable" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Razão Social</th>
-                            <th scope="col">CNPJ</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">Telefone</th>
-                            <th scope="col">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="proviederTableBody">
-                        <!-- Os fornecedores serão carregados aqui via PHP -->
-                        <?php
-                        // SE HOUVER FORNECEDORES NA SESSÃO, EXIBIR
-                        $key = null; // Limpar a variável para trazer TODOS os fornecedores
-                        require("../requests/fornecedores/get.php");
-                        if(!empty($response)) {
-                            foreach($response["data"] as $key => $provider) {
-                                echo '
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3>Fornecedores Cadastrados</h3>
+                        <div>
+                            <a href="/fornecedores/formulario.php" class="btn btn-secondary btn-sm float-left">Novo</a>
+                            <a href="/fornecedores/exportar.php" class="btn btn-success btn-sm float-left">Excel</a>
+                            <a href="/fornecedores/exportar_pdf.php" class="btn btn-danger btn-sm float-left">PDF</a>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- Tabela de fornecedores cadastrados -->
+                        <table id="myTable" class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <th scope="row">'.$provider["id_fornecedor"].'</th>
-                                    <td>'.$provider["razao_social"].'</td>
-                                    <td>'.$provider["cnpj"].'</td>
-                                    <td>'.$provider["email"].'</td>
-                                    <td>'.$provider["telefone"].'</td>
-                                    <td>
-                                        <a href="/fornecedores/formulario.php?key='.$provider["id_fornecedor"].'" class="btn btn-warning">Editar</a>
-                                        <a href="/fornecedores/remover.php?key='.$provider["id_fornecedor"].'" class="btn btn-danger">Excluir</a>
-                                    </td>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Razão Social</th>
+                                    <th scope="col">CNPJ</th>
+                                    <th scope="col">E-mail</th>
+                                    <th scope="col">Telefone</th>
+                                    <th scope="col">Ações</th>
                                 </tr>
-                                ';
-                            }
-                        } else {
-                            echo '
-                            <tr>
-                                <td colspan="7">Nenhum fornecedor cadastrado</td>
-                            </tr>
-                            ';
-                        }
-                        ?>
-                    </tbody>
-                </table>
+                            </thead>
+                            <tbody id="proviederTableBody">
+                                <!-- Os fornecedores serão carregados aqui via PHP -->
+                                <?php
+                                // SE HOUVER FORNECEDORES NA SESSÃO, EXIBIR
+                                $key = null; // Limpar a variável para trazer TODOS os fornecedores
+                                require("../requests/fornecedores/get.php");
+                                if(!empty($response)) {
+                                    foreach($response["data"] as $key => $provider) {
+                                        echo '
+                                        <tr>
+                                            <th scope="row">'.$provider["id_fornecedor"].'</th>
+                                            <td>'.$provider["razao_social"].'</td>
+                                            <td>'.$provider["CNPJ"].'</td>
+                                            <td>'.$provider["email"].'</td>
+                                            <td>'.$provider["telefone"].'</td>
+                                            <td>
+                                                <a href="/fornecedores/formulario.php?key='.$provider["id_fornecedor"].'" class="btn btn-warning">Editar</a>
+                                                <a href="/fornecedores/remover.php?key='.$provider["id_fornecedor"].'" class="btn btn-danger">Excluir</a>
+                                            </td>
+                                        </tr>
+                                        ';
+                                    }
+                                } else {
+                                    echo '
+                                    <tr>
+                                        <td colspan="7">Nenhum fornecedor cadastrado</td>
+                                    </tr>
+                                    ';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

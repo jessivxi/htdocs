@@ -41,74 +41,115 @@ if (isset($_GET["key"])) {
             <div class="col-md">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Cadastrar Fornecedor</h2>
+                        <h3>Cadastrar Fornecedor</h3>
                     </div>
                     <div class="card-body">
                         <!-- Formulário de cadastro de fornecedores -->
-                        <form id="providerForm" action="/fornecedores/cadastrar.php" method="POST"
+                        <form id="myForm" action="/fornecedores/cadastrar.php" method="POST"
                             enctype="multipart/form-data">
-                            <div class="row mb-3">
-                                <div class="col-md-8">
-                                    <label for="providerEmail" class="form-label">E-mail</label>
-                                    <input type="email" class="form-control" id="providerEmail" name="providerEmail"
-                                        required value="<?php echo isset($provider) ? $provider["email"] : ""; ?>">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="providerId" class="form-label">Código do Fornecedor</label>
+                                        <input type="text" class="form-control" id="providerId" name="providerId"
+                                            readonly
+                                            value="<?php echo isset($provider) ? $provider["id_fornecedor"] : ""; ?>">
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="providerPhone" class="form-label">Telefone</label>
-                                    <input data-mask="(00) 0000-0000" type="text" class="form-control"
-                                        id="providerPhone" name="providerPhone" required
-                                        value="<?php echo isset($provider) ? $provider["telefone"] : ""; ?>">
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="providerCNPJ" class="form-label">CNPJ</label>
+                                        <input data-mask="00.000.000/0000-00" type="text" class="form-control"
+                                            id="providerCNPJ" name="providerCNPJ" required
+                                            value="<?php echo isset($provider) ? $provider["CNPJ"] : ""; ?>">
+                                    </div>
                                 </div>
-
+                                <div class="col-md-7">
+                                    <div class="mb-3">
+                                        <label for="providerName" class="form-label">Razão Social</label>
+                                        <input type="text" class="form-control" id="providerName" name="providerName"
+                                            required
+                                            value="<?php echo isset($provider) ? $provider["razao_social"] : ""; ?>">
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <label for="providerCEP" class="form-label">CEP</label>
-                                    <input data-mask="00000-000" type="text" class="form-control" id="providerCEP"
-                                        name="providerCEP" required
-                                        value="<?php echo isset($provider) ? $provider["endereco"]["cep"] : ""; ?>">
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="mb-3">
+                                        <label for="providerEmail" class="form-label">E-mail</label>
+                                        <input type="email" class="form-control" id="providerEmail" name="providerEmail"
+                                            required value="<?php echo isset($provider) ? $provider["email"] : ""; ?>">
+                                    </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <label for="providerStreet" class="form-label">Logradouro</label>
-                                    <input type="text" class="form-control" id="providerStreet" name="providerStreet"
-                                        required
-                                        value="<?php echo isset($provider) ? $provider["endereco"]["logradouro"] : ""; ?>">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="providerNumber" class="form-label">Número</label>
-                                    <input type="text" class="form-control" id="providerNumber" name="providerNumber"
-                                        required
-                                        value="<?php echo isset($provider) ? $provider["endereco"]["numero"] : ""; ?>">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="providerComplement" class="form-label">Complemento</label>
-                                    <input type="text" class="form-control" id="providerComplement"
-                                        name="providerComplement"
-                                        value="<?php echo isset($provider) ? $provider["endereco"]["complemento"] : ""; ?>">
+                                <div class="col-md">
+                                    <div class="mb-3">
+                                        <label for="providerPhone" class="form-label">Telefone</label>
+                                        <input data-mask="(00) 0000-0000" type="text" class="form-control"
+                                            id="providerPhone" name="providerPhone" required
+                                            value="<?php echo isset($provider) ? $provider["telefone"] : ""; ?>">
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label for="providerNeighborhood" class="form-label">Bairro</label>
-                                    <input type="text" class="form-control" id="providerNeighborhood"
-                                        name="providerNeighborhood" required
-                                        value="<?php echo isset($provider) ? $provider["endereco"]["bairro"] : ""; ?>">
+                                    <div class="mb-3">
+                                        <label for="providerCEP" class="form-label">CEP</label>
+                                        <input data-mask="00000-000" type="text" class="form-control" id="providerCEP"
+                                            name="providerCEP" required
+                                            value="<?php echo isset($provider) ? $provider["endereco"]["cep"] : ""; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="mb-3">
+                                        <label for="providerStreet" class="form-label">Logradouro</label>
+                                        <input type="text" class="form-control" id="providerStreet"
+                                            name="providerStreet" required
+                                            value="<?php echo isset($provider) ? $provider["endereco"]["logradouro"] : ""; ?>">
+                                    </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="providerCity" class="form-label">Cidade</label>
-                                    <input readonly type="text" class="form-control" id="providerCity"
-                                        name="providerCity" required
-                                        value="<?php echo isset($provider) ? $provider["endereco"]["cidade"] : ""; ?>">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="providerState" class="form-label">Estado</label>
-                                    <input readonly type="text" maxlength="2" class="form-control" id="providerState"
-                                        name="providerState" required
-                                        value="<?php echo isset($provider) ? $provider["endereco"]["estado"] : ""; ?>">
+                                    <div class="mb-3">
+                                        <label for="providerNumber" class="form-label">Número</label>
+                                        <input type="text" class="form-control" id="providerNumber"
+                                            name="providerNumber" required
+                                            value="<?php echo isset($provider) ? $provider["endereco"]["numero"] : ""; ?>">
+                                    </div>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="mb-3">
+                                        <label for="providerComplement" class="form-label">Complemento</label>
+                                        <input type="text" class="form-control" id="providerComplement"
+                                            name="providerComplement"
+                                            value="<?php echo isset($provider) ? $provider["endereco"]["complemento"] : ""; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="mb-3">
+                                        <label for="providerNeighborhood" class="form-label">Bairro</label>
+                                        <input type="text" class="form-control" id="providerNeighborhood"
+                                            name="providerNeighborhood" required
+                                            value="<?php echo isset($provider) ? $provider["endereco"]["bairro"] : ""; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="mb-3">
+                                        <label for="providerCity" class="form-label">Cidade</label>
+                                        <input readonly type="text" class="form-control" id="providerCity"
+                                            name="providerCity" required
+                                            value="<?php echo isset($provider) ? $provider["endereco"]["cidade"] : ""; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="mb-3">
+                                        <label for="providerState" class="form-label">Estado</label>
+                                        <input readonly type="text" maxlength="2" class="form-control"
+                                            id="providerState" name="providerState" required
+                                            value="<?php echo isset($provider) ? $provider["endereco"]["estado"] : ""; ?>">
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="card-footer">
@@ -116,9 +157,11 @@ if (isset($_GET["key"])) {
                         <button form="myForm" type="submit" class="btn btn-primary">Salvar</button>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+
     <!-- Bootstrap JS (opcional, para funcionalidades como o menu hamburguer) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
